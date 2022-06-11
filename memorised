@@ -1,0 +1,28 @@
+
+const memorized = (fn,context) => {
+    var res = {}
+    return function(...args){
+        let str = JSON.stringify(args);
+        if(!res[str]){
+            res[str]=fn.call(context || this,...args);
+        } 
+        return res[str];
+    }
+    
+}
+
+const clumsysquare = (num1,num2) => {
+    for(let i=1;i<=1000000;i++){}
+    return num1*num2;
+}
+
+const clumsysquarem = memorized(clumsysquare)
+
+console.time("First time");
+console.log(clumsysquarem(9487,4567));
+console.timeEnd("First time");
+
+
+console.time("Second time");
+console.log(clumsysquarem(9487,4567));
+console.timeEnd("Second time");
