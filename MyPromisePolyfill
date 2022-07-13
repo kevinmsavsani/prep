@@ -1,0 +1,45 @@
+function PromisePolyFill(executor) {
+  // TODO: Implement a Promise Polyfill
+	let value, onResolveCompleted=false, onResolve, onReject, onRejectCompleted=false;
+  function resolve(val) {
+    // TODO: Complete this impl
+		value=val;
+		onResolveCompleted = true;
+		 if(typeof onResolve === "function") {
+				onResolve(value);
+			}
+  }
+	
+	function reject(val) {
+    // TODO: Complete this impl
+		value=val;
+		onRejectCompleted = true;
+		 if(typeof onReject === "function") {
+				onReject(value);
+			}
+  }
+
+  this.then = function (callback) {
+    // TODO: Complete this impl
+		onResolve = callback;
+		if(onResolveCompleted) {
+			onResolve(value);
+		}
+    return this;
+  };
+
+  this.catch = function (callback) {
+    // TODO: Complete this impl
+				onReject = callback;
+		if(onRejectCompleted) {
+			onReject(value);
+		}
+    return this;
+  };
+
+  executor(resolve,reject);
+}
+
+new PromisePolyFill((resolve,reject) => {
+  reject("hello");
+}).then((val) => console.log(val)).catch((val)=>console.log("error with "+val));
