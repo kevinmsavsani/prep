@@ -12,13 +12,10 @@ console.log(add(5)(4)(2)(3)(9)())
 
 function curry(func) {
   return function curried(...args) {
-    if (args.length >= func.length) {
-      return func( ...args);
-    } else {
-      return function(...partialArgs) {
-        return curried(...args, ...partialArgs);
-      }
-    }
+    if (args.length !== func.length) {
+      return curried.bind(null,...args);
+    } 
+    return func(...args);
   };
 }
 
