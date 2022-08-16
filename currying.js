@@ -1,4 +1,15 @@
 
+// function add(a){
+//   return function(b){
+//     return function(c){
+//       return function(){
+//         return a + b + c;
+//       }
+//     }
+//   }
+// }
+
+// const add = a => b => b ? add(a + b) : a;
 
 function add(a) {
     return function(b) {
